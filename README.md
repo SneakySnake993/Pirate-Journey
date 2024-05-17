@@ -10,19 +10,27 @@
     Run ```Get-ExecutionPolicy```. If it returns Restricted, then run ```Set-ExecutionPolicy AllSigned``` or ```Set-ExecutionPolicy Bypass -Scope Process```.
  3. run the [script](https://community.chocolatey.org/install.ps1) installation :
 
-    ```Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) ```
+    ```bash
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    ```
 
     if chololatey is already installed :
 
-    ```choco upgrade chocolatey```
+    ```bash
+    choco upgrade chocolatey
+    ```
 
  ### 2. Install nodejs
 
- ```choco install -y nodejs```
+ ```bash
+ choco install -y nodejs
+ ```
 
  ### 3. Instal Java SE Developpment Kit (JDK)
 
- ```choco install -y microsoft-openjdk17```
+ ```bash
+ choco install -y microsoft-openjdk17
+ ```
 
  ### 4. Install and confuigure Android Studio
 
@@ -36,16 +44,22 @@
  ### 0. Create project (only when creating for the first time)
   <span style="color:orange;">skip this step if you cloned the project</span>
 
- ```npx create-expo-app@latest```
+ ```bash
+ npx create-expo-app@latest
+ ```
 
  ### 1. Install expo-dev-client
- ```npx expo install expo-dev-client```
+ ```bash
+ npx expo install expo-dev-client
+ ```
 
  ### 2. Run app
 
  1. Run your emulator or plug device and enable usb debugger (need developper mode enabled). You can check connected devices by running this command :
    ```adb devices```
  2. run the app :
-   ```npx expo run:android```
+   ```bash
+   npx expo run:android
+   ```
 
 
