@@ -28,7 +28,8 @@
 
  1. Install [Android Studio](https://developer.android.com/studio?hl=fr)
  2. Launch and configure Android Studio by reading this [tutorial](https://docs.expo.dev/workflow/android-studio-emulator/) (emulator section is optional).
- When adding variable environement ANDROID_HOME in the tutorial, choose System variable instead of User.
+ 
+ Note : When adding variable environement ANDROID_HOME in the tutorial, choose System variable instead of User.
 
  ## Project initialisation
 
