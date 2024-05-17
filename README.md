@@ -1,6 +1,6 @@
 # Mobile_project
 
- ## Project Initialisation
+ ## Prequisites
 
  ### 1. Install chocolatey
 
@@ -27,4 +27,21 @@
  ### 4. Install and confuigure Android Studio
 
  1. Install [Android Studio](https://developer.android.com/studio?hl=fr)
- 2. Launch and configure Android Studio by reading this [tutorial](https://docs.expo.dev/workflow/android-studio-emulator/) 
+ 2. Launch and configure Android Studio by reading this [tutorial](https://docs.expo.dev/workflow/android-studio-emulator/) (emulator section is optional)
+
+ ## Project initialisation
+
+ ### 0. Create project (only when creating for the first time)
+ ```npx create-expo-app@latest```
+
+ ### 1. Install expo-dev-client
+ ```npx expo install expo-dev-client```
+
+ ### 2. Run app
+
+ 1. Run your emulator or plug device and enable usb debugger (need developper mode enabled). You can check connected devices by running this command :
+   ```adb devices```
+ 2. run the app :
+   ```npx expo run:android```
+
+
