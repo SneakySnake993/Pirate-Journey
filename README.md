@@ -32,6 +32,8 @@
  ## Project initialisation
 
  ### 0. Create project (only when creating for the first time)
+  <span style="color:orange;">skip this step if you cloned the project</span>
+
  ```npx create-expo-app@latest```
 
  ### 1. Install expo-dev-client
