@@ -32,6 +32,8 @@
  choco install -y microsoft-openjdk17
  ```
 
+  Note : React Native recommend not higher version than JDK 17.
+
  ### 4. Install and confuigure Android Studio
 
  1. Install [Android Studio](https://developer.android.com/studio?hl=fr)
