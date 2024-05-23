@@ -29,7 +29,14 @@
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+          "enableCodeScanner": true
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
