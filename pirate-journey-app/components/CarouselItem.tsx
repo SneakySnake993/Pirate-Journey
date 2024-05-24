@@ -5,7 +5,7 @@ import CustomButton from '@/components/CustomButton';
 export default function CarouselItem({ item, index, navigation, lastUnlockedIndex }) {
     return (
       <View key={index} style={styles.container}>
-        <ImageBackground source={item.image} style={styles.image} resizeMode='contain'>
+        <ImageBackground source={item.image} style={styles.image} resizeMode='cover'>
           <View style={styles.buttonContainer}>
             <CustomButton
               title={`Démarrer`}
@@ -26,17 +26,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#023047',
     flexDirection: 'row',
     paddingHorizontal: 25,
-    paddingVertical: 50,
+    paddingVertical: 60,
   },
   image: {
-    // width: Dimensions.get('window').width*0.9,
-    // height: Dimensions.get('window').height*0.9,
     alignSelf: 'stretch',
     flex: 1,
     maxWidth: '100%',
-    overflow: 'hidden',
     maxHeight: '100%',
     width: '100%',
+    borderRadius: 20,
   },
   buttonContainer: {
     position: 'absolute',

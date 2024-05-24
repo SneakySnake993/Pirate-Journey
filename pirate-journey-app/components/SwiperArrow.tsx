@@ -12,7 +12,8 @@ export const SwiperArrowPrev = () => {
 const styles = StyleSheet.create({
   swiperArrow: {
     fontSize: 100,
-    fontWeight: 'bold',
+    fontWeight: '900',
     color: 'rgba(255, 255, 255, 0.8)',
+    margin: 40,
   },
 });
