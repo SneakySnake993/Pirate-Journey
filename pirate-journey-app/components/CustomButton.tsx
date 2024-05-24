@@ -19,10 +19,10 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, disabled = 
       disabled={disabled}
       style={styles.button}
     >
-      {/* <LinearGradient
+      <LinearGradient
         colors={gradientColors}
         style={StyleSheet.absoluteFill}
-      > */}
+      />
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -32,11 +32,10 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 15,
     backgroundColor: "rgba(255, 183, 3, 0.9)",
-    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     padding: 12,
-    paddingHorizontal: 25,
+    paddingHorizontal: 20,
   },
   text: {
     fontSize: 40,
