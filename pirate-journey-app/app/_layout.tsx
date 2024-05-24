@@ -26,7 +26,7 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <NavigationContainer independent={true}>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="CarouselChallenge" component={CarouselChallenge} />
           <Stack.Screen name="Challenge1" component={Challenge1} />
