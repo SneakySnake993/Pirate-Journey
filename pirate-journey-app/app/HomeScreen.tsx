@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import {Camera, Code, useCameraDevice, useCameraPermission, useCodeScanner } from 'react-native-vision-camera';
+import { ErrorPage } from '../components/ErrorPage';
 
 export default function HomeScreen({ navigation }) {
   const device = useCameraDevice('back')
@@ -11,8 +12,7 @@ export default function HomeScreen({ navigation }) {
       requestPermission()
     }
   }, [hasPermission])
-  // if (!hasPermission) return <Text>No camera permissions accorded to use camera</Text>  //<PermissionsPage />
-  // if (device == null) return <Text>No camera found</Text>//<NoCameraDeviceError />
+
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
@@ -21,14 +21,17 @@ export default function HomeScreen({ navigation }) {
       }
     },
   })
+
+  if (!hasPermission) return <ErrorPage error={"No camera permissions accorded."} />
+  if (device == null) return <ErrorPage error={"No camera found."} />
   return (
     <View style={styles.container}>
       <Text style={styles.element}>This is Home Screen</Text>
-      {<Camera
+      <Camera
         codeScanner={codeScanner}
         style={StyleSheet.absoluteFill}
         device={device}
-        isActive={true} />}
+        isActive={true} />
       <Button
         title="Epreuves"
         onPress={() => navigation.navigate("CarouselChallenge")}
