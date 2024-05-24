@@ -18,12 +18,15 @@ export default function HomeScreen({ navigation }) {
     onCodeScanned: (codes: Code[]) => {
       if (codes[0].value == "Challenge1") {
         navigation.navigate("Challenge1")
+      } else if (codes[0].value == "Challenge2") {
+        navigation.navigate("Challenge2")
+      } else { navigation.navigate("Challenge3")}
       }
     },
-  })
+  )
 
   if (!hasPermission) return <ErrorPage error={"No camera permissions accorded."} />
-  if (device == null) return <ErrorPage error={"No camera found."} />
+  if (device == null) return <ErrorPage error={"camera not found."} />
   return (
     <View style={styles.container}>
       <Text style={styles.element}>This is Home Screen</Text>
