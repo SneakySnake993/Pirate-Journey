@@ -5,10 +5,6 @@ export default function Challenge1({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.element}>This is challenge 1</Text>
-      <Button
-        title="Go to Challenge 2"
-        onPress={() => navigation.navigate("Challenge2")}
-      />
     </View>
   );
 }
