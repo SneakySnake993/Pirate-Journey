@@ -1,19 +1,15 @@
 import React from 'react';
-import { TouchableOpacity, Alert } from 'react-native';
-import { Svg } from 'react-native-svg';
+import { Image, TouchableOpacity, Alert } from 'react-native';
 
-const HelpButton = (text) => {
-  const onImagePress = () => {
-    Alert.alert('Information', text);
-  };
+const HelpButton = ({style, onPressImage}) => {
 
+  const helpImage = require('@/assets/images/info-circle.png');
   return (
-    <TouchableOpacity onPress={onImagePress}>
-        {/* <Svg
-            width="62" 
-            height="62"
-            source='@/assets/images/info-circle.svg'
-        /> */}
+    <TouchableOpacity onPress={onPressImage} style={style}>
+        <Image
+            source={helpImage}
+            style={{ width: 50, height: 50 }}
+        />
     </TouchableOpacity>
   );
 };

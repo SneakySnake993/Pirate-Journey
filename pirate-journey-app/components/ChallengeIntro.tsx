@@ -1,83 +1,38 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ScrollView, Dimensions } from 'react-native';
-import { View, Text, ImageBackground, TouchableOpacity, Alert, StyleSheet } from 'react-native';
-import CustomButton from './CustomButton'; // import your CustomButton component
+import { ScrollView } from 'react-native';
+import { Text, ImageBackground, StyleSheet, } from 'react-native';
 
-const TypingText = ({ fullText }) => {
-  const [displayText, setDisplayText] = useState('');
-
-  useEffect(() => {
-    let textIndex = 0;
-
-    // Set up a timer that updates the displayed text every 50 milliseconds
-    const timer = setInterval(() => {
-      setDisplayText((prevText) => prevText + fullText.charAt(textIndex));
-      textIndex++;
-
-      if (textIndex > fullText.length) {
-        clearInterval(timer);
-      }
-    }, 30);
-
-    return () => clearInterval(timer); // Clean up the timer when the component unmounts
-  }, [fullText]);
-
-  const scrollViewRef = useRef<ScrollView | null>(null);
-
-  useEffect(() => {
-    scrollViewRef.current?.scrollToEnd({ animated: true });
-  }, [displayText]);
-
-  return (
-    <ScrollView 
-      ref={scrollViewRef}
-      style={styles.scrollView}
-    >
-      <Text style={styles.typingText}>{displayText}</Text>
-    </ScrollView>
-  );
-};
-
-const HelpButton = ({ onPress }) => {
-  return (
-    <View style={styles.helpButton}>
-      <CustomButton title="Help" onPress={onPress} />
-    </View>
-  );
-};
+import HelpButton from './HelpButton';
+import HelpModal from './HelpModal';
+import TypingIntroText from './TypingText';
 
 const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleHelpPress = () => {
-    Alert.alert('Information', helpText);
+    setModalVisible(true);
   };
+
+  const helpTitle = 'Indice';
 
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
-      <TypingText fullText={introText} />
-      <HelpButton onPress={handleHelpPress} />
+      <TypingIntroText fullText={introText} />
+      <HelpButton style={styles.helpButton} onPressImage={handleHelpPress}/>
+      <HelpModal modalVisible={modalVisible} setModalVisible={setModalVisible} helpTitle={helpTitle} helpText={helpText} />
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1
-  },
-  typingText: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: '600',
-    marginHorizontal: 35
+    flex: 1,
   },
   helpButton: {
-    position: 'absolute', 
-    right: 10, 
-    bottom: 10
-  },
-  scrollView: { 
-    marginTop: 60,
-    maxHeight: '40%',
-  },
+    margin: 20,
+    alignSelf: 'flex-end',
+  }
 });
 
 export default ChallengeIntro;
