@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { Barometer } from "expo-sensors";
 
 // Components
 import ChallengeIntro from "@/components/ChallengeIntro";
@@ -15,19 +14,9 @@ export default function Challenge3({navigation}) {
   const helpText = "Voici l'indice du Challenge 3, bonne chance !";
   const challengePassedModalTitle = 'Épreuve 3 réussie !';
   const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve 3.\nTu es maintenant un vrai pirate !\nÀ la revoyure moussaillon !';
-
-  // --- Barometer sensor ---
-  const [pressure, setPressure] = useState<number | null>(null); 
   const [challengeDone, setChallengeDone] = useState(false);
 
-  useEffect(() => {
-    const subscription = Barometer.addListener(({ pressure }) => {
-      setPressure(pressure);
-      console.log('Pressure:', pressure);
-    });
-
-    return () => subscription && subscription.remove();
-  }, []);
+  // --- Sensor ---
 
 
   // --- Modal ---

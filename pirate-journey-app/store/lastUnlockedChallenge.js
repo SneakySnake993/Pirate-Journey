@@ -10,7 +10,10 @@ const lastUnlockedChallengeSlice = createSlice({
     reset: () => initialState,
     unlock: (state, action) => {
       const challengeNumber = action.payload;
-      if (challengeNumber >= 1 && challengeNumber <= challenges.length) {
+      //check is the challenge number is valid and is greater than the current challenge
+      isChallengeGreaterThanCurrent = challengeNumber > challenges.indexOf(state) + 1;
+      isChallengeValid = challengeNumber >= 1 && challengeNumber <= challenges.length;
+      if (isChallengeGreaterThanCurrent && isChallengeValid) {
         return challenges[challengeNumber - 1];
       }
       return state;

@@ -24,6 +24,7 @@ export default function Challenge1({navigation}) {
   useEffect(() => {
     const subscription = LightSensor.addListener(({ illuminance }) => {
       setLight(illuminance);
+      console.log(illuminance);
     });
 
     return () => subscription && subscription.remove();
@@ -34,7 +35,8 @@ export default function Challenge1({navigation}) {
       console.log('Challenge 1 done !');
       setChallengeDone(true);
       setModalVisible(true);
-      dispatch(unlock(2)); // Redux : unlock next challenge
+      // Redux : unlock 2 if lastUnlockedChallenge < 1
+      dispatch(unlock(2));
     }
   } , [light, dispatch]);
   
