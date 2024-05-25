@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const challenges = ['Challenge1', 'Challenge2', 'Challenge3'];
-const initialState = challenges[0];
+const initialState = challenges[2];
 
 const lastUnlockedChallengeSlice = createSlice({
   name: 'lastUnlockedChallenge',
