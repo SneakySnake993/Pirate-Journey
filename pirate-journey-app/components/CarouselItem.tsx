@@ -1,22 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, ImageBackground, StyleSheet, Dimensions } from 'react-native';
 import CustomButton from '@/components/CustomButton';
+import CustomModal from '@/components/CustomModal';
 
 export default function CarouselItem({ item, index, navigation, lastUnlockedIndex }) {
-    return (
-      <View key={index} style={styles.container}>
-        <ImageBackground source={item.image} style={styles.image} resizeMode='cover'>
-          <View style={styles.buttonContainer}>
-            <CustomButton
-              title={`Démarrer`}
-              onPress={() => navigation.navigate(item.title)}
-              disabled={lastUnlockedIndex < index}
-            />
-          </View>
-        </ImageBackground>
-      </View>
-    );
-  }
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleOnPressDisabled = () => {
+    setModalVisible(true);
+  };
+
+  const buttonTitle = "Démarrer";
+  const modalTitle = "Niveau bloqué";
+  const modalText = "Vous devez terminer les niveaux précédents pour débloquer celui-ci";
+
+  return (
+    <View key={index} style={styles.container}>
+      <ImageBackground source={item.image} style={styles.image} resizeMode='cover'>
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            title={buttonTitle}
+            onPress={() => navigation.navigate(item.title)}
+            onPressDisabled={handleOnPressDisabled}
+            disabled={lastUnlockedIndex < index}
+          />
+        </View>
+        <CustomModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          title={modalTitle}
+          text={modalText}
+        />
+      </ImageBackground>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

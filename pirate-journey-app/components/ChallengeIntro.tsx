@@ -15,12 +15,19 @@ const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
   };
 
   const helpTitle = 'Indice';
+  const modalPosition = 'flex-end';
 
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
       <TypingIntroText fullText={introText} />
       <HelpButton style={styles.helpButton} onPressImage={handleHelpPress}/>
-      <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} title={helpTitle} text={helpText} />
+      <CustomModal 
+        modalVisible={modalVisible} 
+        setModalVisible={setModalVisible} 
+        title={helpTitle} 
+        text={helpText} 
+        position={modalPosition}
+      />
     </ImageBackground>
   );
 };

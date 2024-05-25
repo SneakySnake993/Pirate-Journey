@@ -1,10 +1,15 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const CustomModal = ({ modalVisible, setModalVisible, title, text }) => {
+type JustifyContent = "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+
+
+const CustomModal = ({ modalVisible, setModalVisible, title, text, position = "center" as JustifyContent }) => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
+
+  const positionStyle = {justifyContent: position};
 
   return (
     <Modal
@@ -13,7 +18,7 @@ const CustomModal = ({ modalVisible, setModalVisible, title, text }) => {
       visible={modalVisible}
       onRequestClose={handleModalClose}
     >
-      <View style={styles.centeredView} onTouchEnd={handleModalClose}>
+      <View style={[styles.centeredView, positionStyle]} onTouchEnd={handleModalClose}>
         <View style={styles.modalView}>
             <Text style={styles.modalTitle}>{title}</Text>
             <View style={styles.separator} />
@@ -27,7 +32,6 @@ const CustomModal = ({ modalVisible, setModalVisible, title, text }) => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "flex-end",
     alignItems: "center",
     margin: 25,
   },

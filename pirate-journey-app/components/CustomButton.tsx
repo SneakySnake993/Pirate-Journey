@@ -5,20 +5,28 @@ import { LinearGradient } from 'expo-linear-gradient';
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
+  onPressDisabled?: () => void;
   disabled?: boolean;
 }
 
 const borderRadiusButton = 15;
 
-const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, disabled = false }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, onPressDisabled, disabled = false }) => {
   const noColor = "rgba(0, 0, 0, 0)";
   const disabledColor = "rgba(0, 0, 0, 0.5)";
   const gradientColors = disabled ? [disabledColor, disabledColor] : [noColor, noColor];
 
+  const handlePress = () => {
+    if (disabled && onPressDisabled) {
+      onPressDisabled();
+    } else {
+      onPress();
+    }
+  };
+
   return (
     <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled}
+      onPress={handlePress}
       style={styles.button}
     >
       <LinearGradient
