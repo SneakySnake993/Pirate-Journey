@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }) {
       if (codes[0].value == challenge1) {
         navigation.navigate(challenge1)
       } else if (codes[0].value == challenge2) {
-        navigation.navigate(challenge3)
+        navigation.navigate(challenge2)
       } else { navigation.navigate(challenge3)}
       }
     },
