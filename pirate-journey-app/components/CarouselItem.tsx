@@ -18,25 +18,27 @@ export default function CarouselItem({ item, index, navigation, lastUnlockedInde
 
   return (
     <View key={index} style={styles.container}>
-      <ImageBackground source={item.image} style={styles.image} resizeMode='cover'>
-        {lastUnlockedIndex < index && (
-          <Image source={lockerImage} style={styles.lockerImage} resizeMode='contain'/>
-        )}
-        <View style={styles.buttonContainer}>
-          <CustomButton
-            title={buttonTitle}
-            onPress={() => navigation.navigate(item.title)}
-            onPressDisabled={handleOnPressDisabled}
-            disabled={lastUnlockedIndex < index}
+      <View style={styles.imageContainer}>
+        <ImageBackground source={item.image} style={styles.image} resizeMode='cover'>
+          {lastUnlockedIndex < index && (
+            <Image source={lockerImage} style={styles.lockerImage} resizeMode='contain'/>
+          )}
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              title={buttonTitle}
+              onPress={() => navigation.navigate(item.title)}
+              onPressDisabled={handleOnPressDisabled}
+              disabled={lastUnlockedIndex < index}
+            />
+          </View>
+          <CustomModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            title={modalTitle}
+            text={modalText}
           />
-        </View>
-        <CustomModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          title={modalTitle}
-          text={modalText}
-        />
-      </ImageBackground>
+        </ImageBackground>
+      </View>
     </View>
   );
 }
@@ -51,15 +53,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 60,
   },
-  image: {
+  imageContainer: {
     alignSelf: 'stretch',
     flex: 1,
     maxWidth: '100%',
     maxHeight: '100%',
     width: '100%',
     borderRadius: 20,
-    justifyContent: 'center',
+    overflow: 'hidden',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 5,
+  },
+  image: {
+    alignSelf: 'stretch',
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   lockerImage: {
     alignSelf: 'center',
