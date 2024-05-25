@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { View, ImageBackground, StyleSheet, Image } from 'react-native';
 import CustomButton from '@/components/CustomButton';
 import CustomModal from '@/components/CustomModal';
 
@@ -14,10 +14,14 @@ export default function CarouselItem({ item, index, navigation, lastUnlockedInde
   const buttonTitle = "Démarrer";
   const modalTitle = "Niveau bloqué";
   const modalText = "Vous devez terminer les niveaux précédents pour débloquer celui-ci";
+  const lockerImage = require('@/assets/images/locker.png');
 
   return (
     <View key={index} style={styles.container}>
       <ImageBackground source={item.image} style={styles.image} resizeMode='cover'>
+        {lastUnlockedIndex < index && (
+          <Image source={lockerImage} style={styles.lockerImage} resizeMode='contain'/>
+        )}
         <View style={styles.buttonContainer}>
           <CustomButton
             title={buttonTitle}
@@ -54,6 +58,14 @@ const styles = StyleSheet.create({
     maxHeight: '100%',
     width: '100%',
     borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  lockerImage: {
+    alignSelf: 'center',
+    width: '50%',
+    height: '50%',
+    opacity: 0.8,
   },
   buttonContainer: {
     position: 'absolute',
