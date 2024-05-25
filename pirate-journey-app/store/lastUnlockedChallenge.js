@@ -8,14 +8,16 @@ const lastUnlockedChallengeSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    next: (state) => {
-      const lastChallengeIndex = challenges.indexOf(state);
-      return challenges[(lastChallengeIndex + 1) % challenges.length]; 
-      //% challenges.length to loop back to the first challenge
-    },
+    unlock: (state, action) => {
+      const challengeNumber = action.payload;
+      if (challengeNumber >= 1 && challengeNumber <= challenges.length) {
+        return challenges[challengeNumber - 1];
+      }
+      return state;
+    }
   },
 });
 
-export const { reset, next } = lastUnlockedChallengeSlice.actions;
+export const { reset, unlock } = lastUnlockedChallengeSlice.actions;
 
 export default lastUnlockedChallengeSlice.reducer;

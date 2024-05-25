@@ -4,9 +4,12 @@ import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 type JustifyContent = "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
 
 
-const CustomModal = ({ modalVisible, setModalVisible, title, text, position = "center" as JustifyContent }) => {
+const CustomModal = ({ modalVisible, setModalVisible, title, text, onClose, position = "center" as JustifyContent }) => {
   const handleModalClose = () => {
     setModalVisible(false);
+    if (onClose) {
+      onClose();
+    }
   };
 
   const positionStyle = {justifyContent: position};
