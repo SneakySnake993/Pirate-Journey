@@ -9,7 +9,7 @@ export default function Challenge1({navigation}) {
   const textIntro2 = "Bonsoir mes petits poulets";
   return (
       <ChallengeIntro
-        backgroundImage={require("@/assets/images/challenge-1.png")}
+        backgroundImage={require("@/assets/images/challenge1-intro.png")}
         introText={textIntro}
         helpText={helpText}
       />

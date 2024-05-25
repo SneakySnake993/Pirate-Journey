@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { ScrollView, Dimensions } from 'react-native';
 import { View, Text, ImageBackground, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import CustomButton from './CustomButton'; // import your CustomButton component
 
@@ -11,20 +11,28 @@ const TypingText = ({ fullText }) => {
 
     // Set up a timer that updates the displayed text every 50 milliseconds
     const timer = setInterval(() => {
-      // setDisplayText(fullText.slice(0, textIndex));
       setDisplayText((prevText) => prevText + fullText.charAt(textIndex));
       textIndex++;
 
       if (textIndex > fullText.length) {
         clearInterval(timer);
       }
-    }, 50);
+    }, 30);
 
     return () => clearInterval(timer); // Clean up the timer when the component unmounts
   }, [fullText]);
 
+  const scrollViewRef = useRef<ScrollView | null>(null);
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  }, [displayText]);
+
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView 
+      ref={scrollViewRef}
+      style={styles.scrollView}
+    >
       <Text style={styles.typingText}>{displayText}</Text>
     </ScrollView>
   );
@@ -56,9 +64,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   typingText: {
-    color: 'white',
-    fontSize: 20,
-    margin: 50
+    color: '#fff',
+    fontSize: 22,
+    fontWeight: '600',
+    marginHorizontal: 35
   },
   helpButton: {
     position: 'absolute', 
@@ -66,9 +75,9 @@ const styles = StyleSheet.create({
     bottom: 10
   },
   scrollView: { 
-    marginTop: 50,
+    marginTop: 60,
     maxHeight: '40%',
-  }
+  },
 });
 
 export default ChallengeIntro;
