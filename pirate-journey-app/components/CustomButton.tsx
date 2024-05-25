@@ -5,23 +5,33 @@ import { LinearGradient } from 'expo-linear-gradient';
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
+  onPressDisabled?: () => void;
   disabled?: boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, disabled = false }) => {
+const borderRadiusButton = 15;
+
+const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, onPressDisabled, disabled = false }) => {
   const noColor = "rgba(0, 0, 0, 0)";
-  const disabledColor = "rgba(0, 0, 0, 0.6)";
+  const disabledColor = "rgba(0, 0, 0, 0.5)";
   const gradientColors = disabled ? [disabledColor, disabledColor] : [noColor, noColor];
+
+  const handlePress = () => {
+    if (disabled && onPressDisabled) {
+      onPressDisabled();
+    } else {
+      onPress();
+    }
+  };
 
   return (
     <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled}
+      onPress={handlePress}
       style={styles.button}
     >
       <LinearGradient
         colors={gradientColors}
-        style={StyleSheet.absoluteFill}
+        style={styles.disabledOverlay}
       />
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
@@ -30,12 +40,16 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, disabled = 
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 15,
+    borderRadius: borderRadiusButton,
     backgroundColor: "rgba(255, 183, 3, 0.9)",
     alignItems: "center",
     justifyContent: "center",
-    padding: 12,
+    padding: 10,
     paddingHorizontal: 20,
+  },
+  disabledOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: borderRadiusButton,
   },
   text: {
     fontSize: 40,
