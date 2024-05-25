@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { Text, ImageBackground, StyleSheet, } from 'react-native';
 
 import HelpButton from './HelpButton';
-import HelpModal from './HelpModal';
+import CustomModal from './CustomModal';
 import TypingIntroText from './TypingText';
 
 const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
@@ -20,7 +20,7 @@ const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
     <ImageBackground source={backgroundImage} style={styles.background}>
       <TypingIntroText fullText={introText} />
       <HelpButton style={styles.helpButton} onPressImage={handleHelpPress}/>
-      <HelpModal modalVisible={modalVisible} setModalVisible={setModalVisible} helpTitle={helpTitle} helpText={helpText} />
+      <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} title={helpTitle} text={helpText} />
     </ImageBackground>
   );
 };

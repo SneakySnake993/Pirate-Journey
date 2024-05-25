@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const HelpModal = ({ modalVisible, setModalVisible, helpTitle, helpText }) => {
+const CustomModal = ({ modalVisible, setModalVisible, title, text }) => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
@@ -15,9 +15,9 @@ const HelpModal = ({ modalVisible, setModalVisible, helpTitle, helpText }) => {
     >
       <View style={styles.centeredView} onTouchEnd={handleModalClose}>
         <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>{helpTitle}</Text>
+            <Text style={styles.modalTitle}>{title}</Text>
             <View style={styles.separator} />
-            <Text style={styles.modalText}>{helpText}</Text>
+            <Text style={styles.modalText}>{text}</Text>
         </View>
       </View>
     </Modal>
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HelpModal;
+export default CustomModal;
