@@ -61,6 +61,7 @@ export default function Challenge1({navigation}) {
         title={challengePassedModalTitle} 
         text={challengePassedModalText} 
         onClose={handleModalClose}
+        position="flex-end"
       />
     </View>
   );
