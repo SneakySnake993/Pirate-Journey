@@ -22,9 +22,10 @@ export default function CannonProgressBar({onChallengeDone}) {
   };
 
   useEffect(() => {
-    _subscribe();
     Accelerometer.setUpdateInterval(1000);
-    return () => _unsubscribe();
+    _subscribe();
+    console.log("subscribed");
+    return () => (console.log("unsubcribed"), _unsubscribe());
   }, [])
 
   useEffect(() => {
