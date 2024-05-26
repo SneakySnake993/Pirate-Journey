@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const challenges = ['Challenge1', 'Challenge2', 'Challenge3'];
-const initialState = challenges[0];
+const initialState = { value: challenges[0] }
 console.log('initialState', initialState);
 
 const lastUnlockedChallengeSlice = createSlice({
@@ -13,7 +13,7 @@ const lastUnlockedChallengeSlice = createSlice({
       console.log('state', state);
       const challengeNumber = action.payload;
       if (challengeNumber >= 1 && challengeNumber <= challenges.length) {
-        return challenges[challengeNumber - 1];
+        return { value: challenges[challengeNumber - 1] };
       }
       return state;
     }

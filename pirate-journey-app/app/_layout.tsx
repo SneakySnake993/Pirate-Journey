@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //store
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer,
   FLUSH,
   REHYDRATE,
@@ -28,17 +28,20 @@ import lastUnlockedChallenge from '../store/lastUnlockedChallenge';
 
 const Stack = createNativeStackNavigator();
 
+const rootReducer = combineReducers({
+  lastUnlockedChallenge,
+  // Add other reducers here
+});
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
 };
 
-const persistedReducer = persistReducer(persistConfig, lastUnlockedChallenge);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: {
-    lastUnlockedChallenge: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware({
     serializableCheck: {
