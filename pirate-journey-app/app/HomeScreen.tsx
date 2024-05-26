@@ -1,16 +1,18 @@
 import * as React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import {Camera, Code, useCameraDevice, useCameraPermission, useCodeScanner } from 'react-native-vision-camera';
+
+// components
 import { ErrorPage } from '../components/ErrorPage';
 import CustomButton from "@/components/CustomButton";
-import { Dimensions } from 'react-native';
 import HelpButton from "@/components/HelpButton";
 import CustomModal from "@/components/CustomModal";
 
 export default function HomeScreen({ navigation }) {
   const device = useCameraDevice('back')
   const { hasPermission, requestPermission } = useCameraPermission()
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [helpModalVisible, setHelpModalVisible] = React.useState(false);
+  const [infoModalVisible, setInfoModalVisible] = React.useState(false);
 
   const challenge1 = "Challenge1"
   const challenge2 = "Challenge2"
@@ -20,9 +22,11 @@ export default function HomeScreen({ navigation }) {
   const noDevice = "Camera not found."
   const helpTitle = "Info"
   const helpText = "Scannez le QR code pour accéder à l'épreuve."
+  const infoTitle = "Info"
+  const infoText = "Le code QR n'est pas valide."
 
   const handleHelpPress = () => {
-    setModalVisible(true);
+    setHelpModalVisible(true);
   };
 
   React.useEffect(() => {
@@ -34,14 +38,21 @@ export default function HomeScreen({ navigation }) {
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
+      console.log(codes[0].value)
       if (codes[0].value == challenge1) {
         navigation.navigate(challenge1)
-      } else if (codes[0].value == challenge2) {
+      } 
+      else if (codes[0].value == challenge2) {
         navigation.navigate(challenge2)
-      } else { navigation.navigate(challenge3)}
+      } 
+      else if (codes[0].value == challenge3) { 
+        navigation.navigate(challenge3)
+      }
+      else {
+        setInfoModalVisible(true);
       }
     },
-  )
+  })
 
   if (!hasPermission) return <ErrorPage error={noPermission} />
   if (device == null) return <ErrorPage error={noDevice} />
@@ -54,10 +65,16 @@ export default function HomeScreen({ navigation }) {
         isActive={true} />}
       <HelpButton style={styles.helpButton} onPressImage={handleHelpPress}/>
       <CustomModal 
-        modalVisible={modalVisible} 
-        setModalVisible={setModalVisible} 
+        modalVisible={helpModalVisible} 
+        setModalVisible={setHelpModalVisible} 
         title={helpTitle} 
         text={helpText} 
+        />
+      <CustomModal 
+        modalVisible={infoModalVisible} 
+        setModalVisible={setInfoModalVisible} 
+        title={infoTitle} 
+        text={infoText} 
         />
       <View style={styles.cornersContainer}>
         <View style={[styles.corner, styles.topLeftCorner]} />

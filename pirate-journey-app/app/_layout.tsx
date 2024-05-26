@@ -3,7 +3,7 @@ import * as React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-//store
+// Redux Store
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer,
@@ -14,17 +14,15 @@ import { persistStore, persistReducer,
   PURGE,
   REGISTER,
  } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { PersistGate } from 'redux-persist/integration/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import lastUnlockedChallenge from '../store/lastUnlockedChallenge';
 
 import HomeScreen from "./HomeScreen";
 import CarouselChallenge from "./CarouselChallenge";
 import Challenge1 from "./Challenge1";
 import Challenge2 from "./Challenge2";
 import Challenge3 from "./Challenge3";
-
-import lastUnlockedChallenge from '../store/lastUnlockedChallenge';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,9 +49,6 @@ const store = configureStore({
 })
 
 let persistor = persistStore(store);
-
-
-
 
 export default function RootLayout() {
   return (

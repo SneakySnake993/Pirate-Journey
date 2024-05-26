@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
-import { Button, StyleSheet, Text, View, TouchableOpacity, ImageBackground } from "react-native";
-import { useSelector } from 'react-redux';
+import React, {useState} from "react";
+import { StyleSheet, View, ImageBackground } from "react-native";
 import { useDispatch } from "react-redux";
 
 // Components
@@ -18,14 +17,13 @@ export default function Challenge2({navigation}) {
   const [challengeDone, setChallengeDone] = useState(false);
   const [modalHelpVisible, setModalHelpVisible] = useState(false);
   const [modalSuccessVisible, setModalSuccessVisible] = useState(false);
-  const dispatch = useDispatch(); // Redux
+  const dispatch = useDispatch();
 
-  const textIntro = "Voici l'introduction du Challenge 2";
-  const helpText = "Voici l'indice du Challenge 2, bonne chance !";
+  const textIntro = "Votre supérieur est venu vous tirer de votre sommeil. Il vous demande de rejoindre le pont pour aider à la défense du navire. Il faut maintenant rechargez le canon ! Comment allez-vous vous y prendre ?";
+  const helpText = "Quel mouvement feriez vous insérer la poudre dans le canon avec votre téléphone ?";
   const helpTitle = "Indice";
   const challengePassedModalTitle = 'Épreuve 2 réussie !'
-  const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve 2. Tu peux maintenant passer à l\'épreuve suivante';
-
+  const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve. Tu peux maintenant passer à l\'épreuve suivante';
 
   const handleModalClose = () => {
     setModalSuccessVisible(false);
@@ -38,11 +36,11 @@ export default function Challenge2({navigation}) {
     setModalHelpVisible(true);
   };
 
-const handleChallengeDone = () => {
-  setChallengeDone(true);
-  setModalSuccessVisible(true);
-  dispatch(unlock(3))
-};
+  const handleChallengeDone = () => {
+    setChallengeDone(true);
+    setModalSuccessVisible(true);
+    dispatch(unlock(3))
+  };
   
   return (
     <View style={styles.container}>

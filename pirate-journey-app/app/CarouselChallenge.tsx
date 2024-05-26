@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+
+// Redux Store
 import { useSelector } from 'react-redux';
 import lastUnlockedChallenge from '@/store/lastUnlockedChallenge';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
+// Components
 import CarouselTemplate from '@/components/CarouselTemplate';
 
 const challenges = [
