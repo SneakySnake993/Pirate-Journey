@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import lastUnlockedChallenge from '@/store/lastUnlockedChallenge';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import CarouselTemplate from '@/components/CarouselTemplate';
 
@@ -13,6 +15,8 @@ const challenges = [
 export default function CarouselChallenge ({ navigation }) {
   const lastUnlockedChallengeValue = useSelector(state => state.lastUnlockedChallenge);
   const lastUnlockedIndex = challenges.findIndex(challenge => challenge.title === lastUnlockedChallengeValue) || 0;
+  console.log(lastUnlockedChallengeValue)
+  console.log(lastUnlockedIndex)
 
   return (
     <CarouselTemplate 
