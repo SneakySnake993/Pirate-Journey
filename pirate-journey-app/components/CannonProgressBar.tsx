@@ -14,13 +14,11 @@ export default function Challenge2() {
   
   const _subscribe = () => {
     setSubscription(Accelerometer.addListener(setData));
-    console.log("subscribed");
   };
 
   const _unsubscribe = () => {
     subscription && subscription.remove();
     setSubscription(null);
-    console.log("unsubscribed");
   };
 
   useEffect(() => {
@@ -30,7 +28,6 @@ export default function Challenge2() {
   }, [])
 
   useEffect(() => {
-    console.log(data);
     if (hasMoved) {      
       setCount(count + 1);
     } if (count === 10) {
