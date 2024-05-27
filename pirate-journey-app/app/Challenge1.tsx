@@ -17,28 +17,42 @@ export default function Challenge1({navigation}) {
   const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve. Tu peux maintenant passer à l\'épreuve suivante';
 
   // --- Light sensor ---
-  const [light, setLight] = useState(null);
+  const [lightData, setLightData] = useState(null);
+  const [subscription, setSubscription] = useState(null);
   const [challengeDone, setChallengeDone] = useState(false);
   const dispatch = useDispatch(); // Redux
 
-  useEffect(() => {
-    const subscription = LightSensor.addListener(({ illuminance }) => {
-      setLight(illuminance);
-      console.log(illuminance);
-    });
+  const _subscribe = () => {
+    LightSensor.isAvailableAsync().then(
+      available => {
+        if (available) {
+          setSubscription(LightSensor.addListener(setLightData));
+          console.log("Subscribed to LightSensor");
+        }
+      }
+    );
+  };
 
-    return () => subscription && subscription.remove();
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+    setLightData(null);
+    console.log("Unsubscribed to LightSensor");
+  };
+
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (light && light < 5) {
-      console.log('Challenge 1 done !');
+    if (lightData && lightData.illuminance && lightData.illuminance < 7) {
       setChallengeDone(true);
       setModalVisible(true);
       // Redux : unlock 2 if lastUnlockedChallenge < 1
       dispatch(unlock(2));
     }
-  } , [light, dispatch]);
+  } , [lightData, dispatch]);
   
   // --- Modal ---
   const [modalVisible, setModalVisible] = useState(false);
