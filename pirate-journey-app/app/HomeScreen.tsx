@@ -7,29 +7,33 @@ import { ErrorPage } from '../components/ErrorPage';
 import CustomButton from "@/components/CustomButton";
 import HelpButton from "@/components/HelpButton";
 import CustomModal from "@/components/CustomModal";
+import getChallengesRoutes from "@/utils/getChallengesRoutes";
+import { APP_STRINGS } from "@/constants/ApplicationStrings";
+import getLastUnlockedChallengeIndex from "@/utils/getLastUnlockedChallenge";
 
 export default function HomeScreen({ navigation }) {
   const device = useCameraDevice('back')
   const { hasPermission, requestPermission } = useCameraPermission()
   const [helpModalVisible, setHelpModalVisible] = React.useState(false);
   const [infoModalVisible, setInfoModalVisible] = React.useState(false);
+  const [lockedChallengeModalVisible, setLockedChallengeModalVisible] = React.useState(false);
 
-  const challenge1 = "Challenge1"
-  const challenge2 = "Challenge2"
-  const challenge3 = "Challenge3"
-  const carouselChallenge = "CarouselChallenge"
-  const noPermission = "Camera permissions not accorded."
-  const noDevice = "Camera not found."
-  const helpTitle = "Info"
-  const helpText = "Scannez le QR code pour accéder à l'épreuve."
-  const infoTitle = "Info"
-  const infoText = "Le code QR n'est pas valide."
+  const challengesRoutes = getChallengesRoutes();
+  const lastUnlockedIndex = getLastUnlockedChallengeIndex(challengesRoutes);
 
   const handleHelpPress = () => {
     setHelpModalVisible(true);
   };
+  
+  React.useEffect(() => {
+    if (!hasPermission || hasPermission === null) {
+      console.log("mounting : " + hasPermission)
+    }
+
+  }, [])
 
   React.useEffect(() => {
+    console.log("mounted : " + hasPermission)
     if (!hasPermission) {
       requestPermission()
     }
@@ -38,24 +42,20 @@ export default function HomeScreen({ navigation }) {
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: (codes: Code[]) => {
-      console.log(codes[0].value)
-      if (codes[0].value == challenge1) {
-        navigation.navigate(challenge1)
-      } 
-      else if (codes[0].value == challenge2) {
-        navigation.navigate(challenge2)
-      } 
-      else if (codes[0].value == challenge3) { 
-        navigation.navigate(challenge3)
+      challengesRoutes.map((challenge, index) => {
+        if (codes[0].value === challenge && lastUnlockedIndex >= index) {
+          navigation.navigate(challenge)
+        } else if (codes[0].value === challenge && lastUnlockedIndex < index) {
+          setLockedChallengeModalVisible(true);
+        } else if (index === challengesRoutes.length - 1 && codes[0].value !== challenge) {
+          setInfoModalVisible(true);
+        }
       }
-      else {
-        setInfoModalVisible(true);
-      }
-    },
+    )},
   })
 
-  if (!hasPermission) return <ErrorPage error={noPermission} />
-  if (device == null) return <ErrorPage error={noDevice} />
+  if (!hasPermission) return <ErrorPage error={APP_STRINGS.NO_CAMERA_PERMISSION} />
+  if (device == null) return <ErrorPage error={APP_STRINGS.NO_CAMERA_DEVICE} />
   return (
     <View style={styles.container}>
       {<Camera
@@ -67,15 +67,21 @@ export default function HomeScreen({ navigation }) {
       <CustomModal 
         modalVisible={helpModalVisible} 
         setModalVisible={setHelpModalVisible} 
-        title={helpTitle} 
-        text={helpText} 
+        title={APP_STRINGS.HELP_TITLE} 
+        text={APP_STRINGS.QR_CODE_HELP_TEXT} 
         />
       <CustomModal 
         modalVisible={infoModalVisible} 
         setModalVisible={setInfoModalVisible} 
-        title={infoTitle} 
-        text={infoText} 
+        title={APP_STRINGS.INFO_TITLE} 
+        text={APP_STRINGS.WRONG_QR_CODE_TEXT} 
         />
+      <CustomModal
+        modalVisible={lockedChallengeModalVisible}
+        setModalVisible={setLockedChallengeModalVisible}
+        title={APP_STRINGS.LOCKED_CHALLENGE_TITLE}
+        text={APP_STRINGS.LOCKED_CHALLENGE_TEXT}
+      />
       <View style={styles.cornersContainer}>
         <View style={[styles.corner, styles.topLeftCorner]} />
         <View style={[styles.corner, styles.topRightCorner]} />
@@ -83,13 +89,11 @@ export default function HomeScreen({ navigation }) {
         <View style={[styles.corner, styles.bottomRightCorner]} />
       </View>
       <View style={styles.buttonContainer}>
-        <CustomButton title="Épreuves" onPress={() => navigation.navigate(carouselChallenge)} />
+        <CustomButton title={APP_STRINGS.CHALLENGES_BUTTON_TEXT} onPress={() => navigation.navigate(APP_STRINGS.CAROUSEL_CHALLENGE_ROUTE)} />
       </View>
     </View>
   );
 }
-
-
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
