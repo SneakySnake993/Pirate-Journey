@@ -45,7 +45,7 @@ export default function Challenge2({navigation}) {
   return (
     <View style={styles.container}>
       {isChallengeStarted ? 
-          <ImageBackground source={require("@/assets/images/challenge2-carousel.png")} style={styles.background}>
+          <ImageBackground source={require("@/assets/images/challenge2.png")} style={styles.background}>
             <CannonProgressBar onChallengeDone={handleChallengeDone}/>
             <HelpButton style={styles.helpButton} onPressImage={handleHelpPress}/>
             <CustomModal 
