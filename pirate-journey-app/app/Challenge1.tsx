@@ -71,7 +71,7 @@ export default function Challenge1({navigation}) {
       <CustomModal 
         modalVisible={modalVisible} 
         setModalVisible={setModalVisible} 
-        title={APP_STRINGS.CHALLENGE2_SUCCESS_TITLE} 
+        title={APP_STRINGS.CHALLENGE1_SUCCESS_TITLE} 
         text={APP_STRINGS.CHALLENGE1_SUCCESS_TEXT} 
         onClose={handleModalClose}
         position="flex-end"
