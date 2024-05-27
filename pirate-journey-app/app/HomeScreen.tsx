@@ -27,13 +27,11 @@ export default function HomeScreen({ navigation }) {
   
   React.useEffect(() => {
     if (!hasPermission || hasPermission === null) {
-      console.log("mounting : " + hasPermission)
     }
 
   }, [])
 
   React.useEffect(() => {
-    console.log("mounted : " + hasPermission)
     if (!hasPermission) {
       requestPermission()
     }

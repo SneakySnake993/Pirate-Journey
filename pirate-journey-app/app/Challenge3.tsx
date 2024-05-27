@@ -64,7 +64,6 @@ export default function Challenge3({navigation}) {
         if (available) {
           Magnetometer.setUpdateInterval(16);
           setSubscription(Magnetometer.addListener(setMagnetometerData));
-          console.log("Subscribed to magnetometer");
         }
       }
     );
@@ -74,7 +73,6 @@ export default function Challenge3({navigation}) {
     subscription && subscription.remove();
     setSubscription(null);
     setMagnetometerData({x: 0, y: 0, z: 0});
-    console.log("Unsubscribed to magnetometer");
   };
 
   useEffect(() => {

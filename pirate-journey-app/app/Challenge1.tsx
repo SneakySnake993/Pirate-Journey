@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { LightSensor } from "expo-sensors";
 import { useDispatch } from "react-redux";
 import { APP_STRINGS } from "@/constants/ApplicationStrings";
@@ -24,7 +24,6 @@ export default function Challenge1({navigation}) {
       available => {
         if (available) {
           setSubscription(LightSensor.addListener(setLightData));
-          console.log("Subscribed to LightSensor");
         }
       }
     );
@@ -34,7 +33,6 @@ export default function Challenge1({navigation}) {
     subscription && subscription.remove();
     setSubscription(null);
     setLightData(null);
-    console.log("Unsubscribed to LightSensor");
   };
 
   useEffect(() => {
