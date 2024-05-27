@@ -33,67 +33,67 @@ export default function Challenge3({navigation}) {
 
   // --- Magnetometer Sensor ---
 
-  // const [magnetometerData, setMagnetometerData] = useState({x: 0, y: 0, z: 0});
-  // const [subscription, setSubscription] = useState(null);
-  // const rotateAnim = useRef(new Animated.Value(0)).current;
-  // const lastHeading = useRef(0);
+  const [magnetometerData, setMagnetometerData] = useState({x: 0, y: 0, z: 0});
+  const [subscription, setSubscription] = useState(null);
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+  const lastHeading = useRef(0);
 
 
-  // const _subscribe = () => {
-  //   Magnetometer.isAvailableAsync().then(
-  //     available => {
-  //       if (available) {
-  //         Magnetometer.setUpdateInterval(16);
-  //         setSubscription(Magnetometer.addListener(setMagnetometerData));
-  //         console.log("Subscribed to magnetometer");
-  //       }
-  //     }
-  //   );
-  // };
+  const _subscribe = () => {
+    Magnetometer.isAvailableAsync().then(
+      available => {
+        if (available) {
+          Magnetometer.setUpdateInterval(16);
+          setSubscription(Magnetometer.addListener(setMagnetometerData));
+          console.log("Subscribed to magnetometer");
+        }
+      }
+    );
+  };
 
-  // const _unsubscribe = () => {
-  //   subscription && subscription.remove();
-  //   setSubscription(null);
-  //   setMagnetometerData({x: 0, y: 0, z: 0});
-  //   console.log("Unsubscribed to magnetometer");
-  // };
+  const _unsubscribe = () => {
+    subscription && subscription.remove();
+    setSubscription(null);
+    setMagnetometerData({x: 0, y: 0, z: 0});
+    console.log("Unsubscribed to magnetometer");
+  };
 
-  // useEffect(() => {
-  //   _subscribe();
-  //   return () => _unsubscribe();
-  // }, []);
+  useEffect(() => {
+    _subscribe();
+    return () => _unsubscribe();
+  }, []);
 
-  // useEffect(() => {
-  //   console.log("Magnetometer data: " + magnetometerData.x + ", " + magnetometerData.y + ", " + magnetometerData.z);
+  useEffect(() => {
+    console.log("Magnetometer data: " + magnetometerData.x + ", " + magnetometerData.y + ", " + magnetometerData.z);
 
-  //   // Calculate the angle of the rotation in degrees
-  //   const angle = Math.atan2(magnetometerData.y, magnetometerData.x) * (180 / Math.PI);
+    // Calculate the angle of the rotation in degrees
+    const angle = Math.atan2(magnetometerData.y, magnetometerData.x) * (180 / Math.PI);
 
-  //   // Convert the angle to compass heading
-  //   let heading = -angle + 90;
-  //   if (heading < 0) heading += 360;
+    // Convert the angle to compass heading
+    let heading = -angle + 90;
+    if (heading < 0) heading += 360;
 
-  //   // Adjust the heading to avoid jumps from 360 to 0 degrees and vice versa
-  //   const diff = heading - lastHeading.current;
-  //   if (diff > 180) {
-  //     heading -= 360;
-  //   } else if (diff < -180) {
-  //     heading += 360;
-  //   }
-  //   lastHeading.current = heading;
+    // Adjust the heading to avoid jumps from 360 to 0 degrees and vice versa
+    const diff = heading - lastHeading.current;
+    if (diff > 180) {
+      heading -= 360;
+    } else if (diff < -180) {
+      heading += 360;
+    }
+    lastHeading.current = heading;
 
-  //   Animated.timing(rotateAnim, {
-  //     toValue: heading,
-  //     duration: 200,
-  //     useNativeDriver: true,
-  //     easing: Easing.linear,
-  //   }).start();
-  // }, [magnetometerData]);
+    Animated.timing(rotateAnim, {
+      toValue: heading,
+      duration: 200,
+      useNativeDriver: true,
+      easing: Easing.linear,
+    }).start();
+  }, [magnetometerData]);
 
-  // const spin = rotateAnim.interpolate({
-  //   inputRange: [0, 360],
-  //   outputRange: ['0deg', '360deg']
-  // });
+  const spin = rotateAnim.interpolate({
+    inputRange: [0, 360],
+    outputRange: ['0deg', '360deg']
+  });
 
 
 
@@ -102,24 +102,24 @@ export default function Challenge3({navigation}) {
   return (
     <View style={styles.container}>
       <ChallengeIntro
-        backgroundImage={require("@/assets/images/challenge1-intro.png")}
+        backgroundImage={require("@/assets/images/challenge3-intro.png")}
         introText={textIntro}
         helpText={helpText}
       />
     
-      {/* <Animated.Image 
+      <Animated.Image 
           source={require('../assets/images/compass.png')}
           style={[styles.image, {transform: [{rotate: spin}]}]}
-      /> */}
+      />
 
-      {/* <CustomModal 
+      <CustomModal 
         modalVisible={modalVisible} 
         setModalVisible={setModalVisible} 
         title={challengePassedModalTitle} 
         text={challengePassedModalText} 
         onClose={handleModalClose}
         position="flex-end"
-      /> */}
+      />
     </View>
   );
 }
