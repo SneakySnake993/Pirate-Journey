@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Image, StyleSheet, Text, View, Dimensions, Button, Animated, ScrollView, PanResponder, Easing} from "react-native";
-import { useDispatch } from "react-redux";
+import { StyleSheet, View, Dimensions, Animated, Easing} from "react-native";
 import { Magnetometer } from 'expo-sensors';
+import { APP_STRINGS } from "@/constants/ApplicationStrings";
 
 // Components
 import ChallengeIntro from "@/components/ChallengeIntro";
@@ -9,19 +9,9 @@ import CustomModal from "@/components/CustomModal";
 import Challenge from "@/components/Challenge";
 import CustomButton from "@/components/CustomButton";
 
-// Redux Store
-import { unlock } from "@/store/lastUnlockedChallenge";
-
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
-const imageWidth = 350;
-const imageHeight = 350;
 
 export default function Challenge3({navigation}) {
-  const textIntro = "Pendant la bataille, tu as perdu la carte au trésor, cependant tu te souviens de l’énigme qui y était indiquée :\n\n \" Sous le soleil de midi, quand les heures se figent, où l'ombre est la plus courte, 7 pas tu feras\"";
-  const helpText = "\"Sous le soleil de midi, quand les heures se figent, où l'ombre est la plus courte, 7 pas tu feras\"\nCette énigme semble faire référence à une horloge";
-  const startButtonTitle = "C'est parti !";
-  const challengePassedModalTitle = 'Épreuve 3 réussie !';
-  const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve 3.\nTu es maintenant un vrai pirate !\nÀ la revoyure moussaillon !';
 
   // --- Challenge start button ---
   const [challengeStarted, setChallengeStarted] = useState(false);
@@ -140,15 +130,15 @@ export default function Challenge3({navigation}) {
       {!challengeStarted && (
         <ChallengeIntro
           backgroundImage={require("@/assets/images/challenge3-intro.png")}
-          introText={textIntro}
-          helpText={helpText}
+          introText={APP_STRINGS.CHALLENGE3_INTRO}
+          helpText={APP_STRINGS.CHALLENGE3_HINT}
         />
       )}
 
       {challengeStarted && (
         <Challenge
           backgroundImage={require("@/assets/images/challenge3-intro.png")}
-          helpText={helpText}
+          helpText={APP_STRINGS.CHALLENGE3_INTRO}
           helpButtonStyle={styles.helpButton}
           challengeViewElement={
             <View style={[styles.containerElement]}>
@@ -164,7 +154,7 @@ export default function Challenge3({navigation}) {
       {!challengeStarted && (
         <View style={styles.startButtonContainer}>
             <CustomButton
-              title={startButtonTitle}
+              title={APP_STRINGS.START_BUTTON_TEXT}
               onPress={handleChallengeStart}
             />
         </View>
@@ -174,8 +164,8 @@ export default function Challenge3({navigation}) {
       <CustomModal 
         modalVisible={modalVisible} 
         setModalVisible={setModalVisible} 
-        title={challengePassedModalTitle} 
-        text={challengePassedModalText} 
+        title={APP_STRINGS.CHALLENGE3_SUCCESS_TITLE} 
+        text={APP_STRINGS.CHALLENGE3_SUCCESS_TEXT} 
         onClose={handleModalClose}
         position="flex-end"
       />

@@ -1,11 +1,14 @@
 export const APP_STRINGS = {
   // --- Routes ---
-  HOME_SCREEN_ROUTE: "HomeScreen",
+  HOME_SCREEN_ROUTE: "Home",
   CAROUSEL_CHALLENGE_ROUTE: "CarouselChallenge",
   CHALLENGE1_ROUTE: "Challenge1",
   CHALLENGE2_ROUTE: "Challenge2",
   CHALLENGE3_ROUTE: "Challenge3",
   ERROR_ROUTE: "ErrorPage",
+
+  // --- Carousel ---
+  CAROUSEL_START_BUTTON_TEXT: "Démarrer",
   
   // --- Challenge1 ---
   CHALLENGE1_INTRO: "L’alarme retentit, le bateau se fait attaquer. Vous devez rejoindre le pont au plus vite, cependant vous préférez vous reposez dans la cale du navire. Mais la lumière vous empêche de dormir. Que faire ?",
@@ -20,13 +23,13 @@ export const APP_STRINGS = {
   CHALLENGE2_SUCCESS_TEXT: "Bravo, tu as réussi l'épreuve. Tu peux maintenant passer à l'épreuve suivante.",
 
     // buttons
-    START_BUTTON_TEXT: "C'est partit !",
+    START_BUTTON_TEXT: "C'est parti !",
   
   // --- Challenge3 --- 
-  CHALLENGE3_INTRO: "",
-  CHALLENGE3_HINT: "",
+  CHALLENGE3_INTRO: "Pendant la bataille, tu as perdu la carte au trésor, cependant tu te souviens de l’énigme qui y était indiquée :\n\n \" Sous le soleil de midi, quand les heures se figent, où l'ombre est la plus courte, 7 pas tu feras\"",
+  CHALLENGE3_HINT: "\"Sous le soleil de midi, quand les heures se figent, où l'ombre est la plus courte, 7 pas tu feras\"\nCette énigme semble faire référence à une horloge",
   CHALLENGE3_SUCCESS_TITLE: "Épreuve 3 réussie !",
-  CHALLENGE3_SUCCESS_TEXT: "Bravo, tu as terminé toutes les épreuves !",
+  CHALLENGE3_SUCCESS_TEXT: "Bravo, tu as complété toutes les épreuves.\nTu es maintenant un vrai pirate !\nÀ la revoyure moussaillon !",
   
   // --- Modals titles ---
   INFO_TITLE: "Info",

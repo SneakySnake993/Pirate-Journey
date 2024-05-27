@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { View, ImageBackground, StyleSheet, Image } from 'react-native';
 import CustomButton from '@/components/CustomButton';
 import CustomModal from '@/components/CustomModal';
+import { APP_STRINGS } from '@/constants/ApplicationStrings';
 
 export default function CarouselItem({ item, index, navigation, lastUnlockedIndex }) {
 
@@ -11,9 +12,6 @@ export default function CarouselItem({ item, index, navigation, lastUnlockedInde
     setModalVisible(true);
   };
 
-  const buttonTitle = "Démarrer";
-  const modalTitle = "Niveau bloqué";
-  const modalText = "Vous devez terminer les niveaux précédents pour débloquer celui-ci";
   const lockerImage = require('@/assets/images/locker.png');
 
   return (
@@ -25,7 +23,7 @@ export default function CarouselItem({ item, index, navigation, lastUnlockedInde
           )}
           <View style={styles.buttonContainer}>
             <CustomButton
-              title={buttonTitle}
+              title={APP_STRINGS.CAROUSEL_START_BUTTON_TEXT}
               onPress={() => navigation.navigate(item.title)}
               onPressDisabled={handleOnPressDisabled}
               disabled={lastUnlockedIndex < index}
@@ -34,8 +32,8 @@ export default function CarouselItem({ item, index, navigation, lastUnlockedInde
           <CustomModal
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            title={modalTitle}
-            text={modalText}
+            title={APP_STRINGS.LOCKED_CHALLENGE_TITLE}
+            text={APP_STRINGS.LOCKED_CHALLENGE_TEXT}
           />
         </ImageBackground>
       </View>
