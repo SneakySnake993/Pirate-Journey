@@ -4,9 +4,8 @@ import { Text, ImageBackground, StyleSheet, } from 'react-native';
 
 import HelpButton from './HelpButton';
 import CustomModal from './CustomModal';
-import TypingIntroText from './TypingText';
 
-const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
+const Challenge = ({ backgroundImage, helpText, helpButtonStyle, challengeViewElement }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -19,8 +18,8 @@ const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
 
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>
-      <TypingIntroText fullText={introText} />
-      <HelpButton style={styles.helpButton} onPressImage={handleHelpPress}/>
+      <HelpButton style={helpButtonStyle} onPressImage={handleHelpPress}/>
+      {challengeViewElement}
       <CustomModal 
         modalVisible={modalVisible} 
         setModalVisible={setModalVisible} 
@@ -35,13 +34,7 @@ const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-  },
-  helpButton: {
-    position : 'absolute',
-    right: 0,
-    top: '50%',
-    margin: 20,
-  },
+  }
 });
 
-export default ChallengeIntro;
+export default Challenge;

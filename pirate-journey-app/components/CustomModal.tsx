@@ -5,6 +5,7 @@ type JustifyContent = "flex-start" | "flex-end" | "center" | "space-between" | "
 
 
 const CustomModal = ({ modalVisible, setModalVisible, title, text, onClose, position = "center" as JustifyContent }) => {
+  
   const handleModalClose = () => {
     setModalVisible(false);
     if (onClose) {

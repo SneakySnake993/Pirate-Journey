@@ -41,7 +41,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, onPressDisa
 const styles = StyleSheet.create({
   button: {
     borderRadius: borderRadiusButton,
-    backgroundColor: "rgba(255, 183, 3, 0.9)",
+    backgroundColor: "rgba(255, 183, 3, 0.95)",
     alignItems: "center",
     justifyContent: "center",
     padding: 10,

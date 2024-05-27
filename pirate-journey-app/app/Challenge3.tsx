@@ -6,22 +6,32 @@ import { Magnetometer } from 'expo-sensors';
 // Components
 import ChallengeIntro from "@/components/ChallengeIntro";
 import CustomModal from "@/components/CustomModal";
+import Challenge from "@/components/Challenge";
+import CustomButton from "@/components/CustomButton";
 
 // Redux Store
 import { unlock } from "@/store/lastUnlockedChallenge";
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
-const imageWidth = 300;
-const imageHeight = 300;
+const imageWidth = 350;
+const imageHeight = 350;
 
 export default function Challenge3({navigation}) {
-  const textIntro = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur";
-  const helpText = "Voici l'indice du Challenge 3, bonne chance !";
+  const textIntro = "Pendant la bataille, tu as perdu la carte au trésor, cependant tu te souviens de l’énigme qui y était indiquée :\n\n \" Sous le soleil de midi, quand les heures se figent, où l'ombre est la plus courte, 7 pas tu feras\"";
+  const helpText = "\"Sous le soleil de midi, quand les heures se figent, où l'ombre est la plus courte, 7 pas tu feras\"\nCette énigme semble faire référence à une horloge";
+  const startButtonTitle = "C'est parti !";
   const challengePassedModalTitle = 'Épreuve 3 réussie !';
   const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve 3.\nTu es maintenant un vrai pirate !\nÀ la revoyure moussaillon !';
-  const [challengeDone, setChallengeDone] = useState(false);
 
-  // --- Modal ---
+  // --- Challenge start button ---
+  const [challengeStarted, setChallengeStarted] = useState(false);
+  const handleChallengeStart = () => {
+    setChallengeStarted(true);
+    setChallengeDone(false);
+  }
+
+  // --- Modal challenge done ---
+  const [challengeDone, setChallengeDone] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleModalClose = () => {
@@ -30,6 +40,25 @@ export default function Challenge3({navigation}) {
       navigation.navigate('Home');
     }
   }
+
+  useEffect(() => {
+    return () => {
+      // Reset the challenge state when the component is unmounted
+      setChallengeStarted(false);
+      setChallengeDone(false);
+    };
+  }, []);
+
+  // --- Reset quand on quitte le challenge (bouton retour) ---
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      // Reset the challenge state when the user leaves the page
+      setChallengeStarted(false);
+      setChallengeDone(false);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   // --- Magnetometer Sensor ---
 
@@ -64,7 +93,6 @@ export default function Challenge3({navigation}) {
   }, []);
 
   useEffect(() => {
-    console.log("Magnetometer data: " + magnetometerData.x + ", " + magnetometerData.y + ", " + magnetometerData.z);
 
     // Calculate the angle of the rotation in degrees
     const angle = Math.atan2(magnetometerData.y, magnetometerData.x) * (180 / Math.PI);
@@ -88,6 +116,14 @@ export default function Challenge3({navigation}) {
       useNativeDriver: true,
       easing: Easing.linear,
     }).start();
+
+    // Check if challenge is done (Nord-Est)
+    if (challengeStarted) {
+      if (Math.abs(heading - 315) <= 5) { // 5 degrees tolerance
+        setChallengeDone(true);
+        setModalVisible(true);
+      }
+    }
   }, [magnetometerData]);
 
   const spin = rotateAnim.interpolate({
@@ -101,16 +137,39 @@ export default function Challenge3({navigation}) {
 
   return (
     <View style={styles.container}>
-      <ChallengeIntro
-        backgroundImage={require("@/assets/images/challenge3-intro.png")}
-        introText={textIntro}
-        helpText={helpText}
-      />
-    
-      <Animated.Image 
-          source={require('../assets/images/compass.png')}
-          style={[styles.image, {transform: [{rotate: spin}]}]}
-      />
+      {!challengeStarted && (
+        <ChallengeIntro
+          backgroundImage={require("@/assets/images/challenge3-intro.png")}
+          introText={textIntro}
+          helpText={helpText}
+        />
+      )}
+
+      {challengeStarted && (
+        <Challenge
+          backgroundImage={require("@/assets/images/challenge3-intro.png")}
+          helpText={helpText}
+          helpButtonStyle={styles.helpButton}
+          challengeViewElement={
+            <View style={[styles.containerElement]}>
+              <Animated.Image 
+                source={require('../assets/images/compass.png')}
+                style={[styles.image, {transform: [{rotate: spin}]}]}
+              />
+            </View>
+          }
+        />
+      )}
+
+      {!challengeStarted && (
+        <View style={styles.startButtonContainer}>
+            <CustomButton
+              title={startButtonTitle}
+              onPress={handleChallengeStart}
+            />
+        </View>
+      )}
+
 
       <CustomModal 
         modalVisible={modalVisible} 
@@ -128,9 +187,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  containerElement: {
+    height: deviceWidth,
+    alignItems: 'center',
+    marginTop: 30,
+  },
   image: {
-    width: imageWidth,
-    height: imageHeight,
+    flex: 1,
+    resizeMode: 'contain',
+  },
+  helpButton: {
+    position : 'absolute',
+    right: 0,
+    top: '50%',
+    margin: 20,
     zIndex: 1,
+  },
+  startButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 40,
   },
 });
