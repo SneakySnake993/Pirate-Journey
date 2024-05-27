@@ -10,10 +10,9 @@ const lastUnlockedChallengeSlice = createSlice({
   reducers: {
     reset: () => initialState,
     unlock: (state, action) => {
-      console.log('state', state);
       const challengeNumber = action.payload;
       //check is the challenge number is valid and is greater than the current challenge
-      isChallengeGreaterThanCurrent = challengeNumber > challenges.indexOf(state) + 1;
+      isChallengeGreaterThanCurrent = challengeNumber > challenges.indexOf(state.value) + 1;
       isChallengeValid = challengeNumber >= 1 && challengeNumber <= challenges.length;
       if (isChallengeGreaterThanCurrent && isChallengeValid) {
         return { value: challenges[challengeNumber - 1] };
