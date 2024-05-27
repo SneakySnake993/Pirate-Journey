@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+
+// Redux Store
 import { useSelector } from 'react-redux';
 import lastUnlockedChallenge from '@/store/lastUnlockedChallenge';
 
+// Components
 import CarouselTemplate from '@/components/CarouselTemplate';
 
 const challenges = [
@@ -11,8 +14,10 @@ const challenges = [
 ];
 
 export default function CarouselChallenge ({ navigation }) {
-  const lastUnlockedChallengeValue = useSelector(state => state.lastUnlockedChallenge);
+  const lastUnlockedChallengeValue = useSelector(state => state.lastUnlockedChallenge.value);
   const lastUnlockedIndex = challenges.findIndex(challenge => challenge.title === lastUnlockedChallengeValue) || 0;
+  console.log(lastUnlockedChallengeValue)
+  console.log(lastUnlockedIndex)
 
   return (
     <CarouselTemplate 

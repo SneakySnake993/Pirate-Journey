@@ -4,14 +4,12 @@ import { Accelerometer } from 'expo-sensors';
 import { NativeScreen } from "react-native-screens";
 import * as Progress from 'react-native-progress';
 
-
-export default function Challenge2() {
+export default function CannonProgressBar({onChallengeDone}) {
   const [data, setData] = useState({ x: 0, y: 0, z: 0 });
   const [prevData, setPrevData] = useState({ x: 0, y: 0, z: 0 });
   const [subscription, setSubscription] = useState(null);
   const [count, setCount] = useState(0);
 
-  
   const _subscribe = () => {
     setSubscription(Accelerometer.addListener(setData));
   };
@@ -22,15 +20,17 @@ export default function Challenge2() {
   };
 
   useEffect(() => {
-    _subscribe();
     Accelerometer.setUpdateInterval(1000);
-    return () => _unsubscribe();
+    _subscribe();
+    console.log("subscribed");
+    return () => (console.log("unsubcribed"), _unsubscribe());
   }, [])
 
   useEffect(() => {
     if (hasMoved) {      
       setCount(count + 1);
     } if (count === 10) {
+      onChallengeDone()
       return () => _unsubscribe();
     }
     setPrevData({ x: data.x, y: data.y, z: data.z });
@@ -42,20 +42,39 @@ export default function Challenge2() {
     Math.abs(data.z) > Math.abs(prevData.z) + 0.3 || Math.abs(data.z) < Math.abs(prevData.z) - 0.3)
 
   return (
-    <View style={styles.container}>
+    <View style={styles.middleContainer}>
+    <View style={styles.content}>
       <Text style={styles.element}>Movements count: {count}</Text>
-      <Progress.Bar progress={count / 10} width={200} />
+      {/* Other content... */}
     </View>
+    <View style={styles.rightColumn}>
+      <View style={styles.progressBar}>
+        <Progress.Bar progress={count / 10} width={200} color='rgba(255, 183, 3, 0.9)' borderWidth={3} />
+      </View>
+    </View>
+  </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
+  middleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   element: {
-      margin: 10,
+    margin: 10,
+  },
+  progressBar: {
+    transform: [{ rotate: '-90deg' }],
+  },
+  rightColumn: {
+    width: '33%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
