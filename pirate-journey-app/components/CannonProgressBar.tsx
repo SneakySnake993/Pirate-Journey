@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {StyleSheet, View } from "react-native";
 import { Accelerometer } from 'expo-sensors';
-import { NativeScreen } from "react-native-screens";
 import * as Progress from 'react-native-progress';
 
 export default function CannonProgressBar({onChallengeDone}) {
@@ -22,8 +21,7 @@ export default function CannonProgressBar({onChallengeDone}) {
   useEffect(() => {
     Accelerometer.setUpdateInterval(1000);
     _subscribe();
-    console.log("subscribed");
-    return () => (console.log("unsubcribed"), _unsubscribe());
+    return () => (_unsubscribe());
   }, [])
 
   useEffect(() => {
@@ -43,10 +41,6 @@ export default function CannonProgressBar({onChallengeDone}) {
 
   return (
     <View style={styles.middleContainer}>
-    <View style={styles.content}>
-      <Text style={styles.element}>Movements count: {count}</Text>
-      {/* Other content... */}
-    </View>
     <View style={styles.rightColumn}>
       <View style={styles.progressBar}>
         <Progress.Bar progress={count / 10} width={200} color='rgba(255, 183, 3, 0.9)' borderWidth={3} />
