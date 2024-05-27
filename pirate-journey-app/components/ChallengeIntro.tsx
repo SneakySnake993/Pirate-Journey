@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { Text, ImageBackground, StyleSheet, } from 'react-native';
+import { APP_STRINGS } from '@/constants/ApplicationStrings';
 
 import HelpButton from './HelpButton';
 import CustomModal from './CustomModal';
@@ -14,7 +15,6 @@ const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
     setModalVisible(true);
   };
 
-  const helpTitle = 'Indice';
   const modalPosition = 'flex-end';
 
   return (
@@ -24,7 +24,7 @@ const ChallengeIntro = ({ backgroundImage, introText, helpText }) => {
       <CustomModal 
         modalVisible={modalVisible} 
         setModalVisible={setModalVisible} 
-        title={helpTitle} 
+        title={APP_STRINGS.HINT_TITLE} 
         text={helpText} 
         position={modalPosition}
       />

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { LightSensor } from "expo-sensors";
 import { useDispatch } from "react-redux";
+import { APP_STRINGS } from "@/constants/ApplicationStrings";
 
 // Components
 import ChallengeIntro from "@/components/ChallengeIntro";
@@ -11,10 +12,6 @@ import CustomModal from "@/components/CustomModal";
 import { unlock } from "@/store/lastUnlockedChallenge";
 
 export default function Challenge1({navigation}) {
-  const textIntro = "L’alarme retentit, le bateau se fait attaqué. Vous devez rejoindre le pont au plus vite, cependant vous préférez vous reposez dans la cale du navire. Mais la lumière vous empêche de dormir. Que faire ?"
-  const helpText = "Trouve un moyen réduire la luminosité autour de ton téléphone.";
-  const challengePassedModalTitle = 'Épreuve 1 réussie !';
-  const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve. Tu peux maintenant passer à l\'épreuve suivante';
 
   // --- Light sensor ---
   const [lightData, setLightData] = useState(null);
@@ -60,7 +57,7 @@ export default function Challenge1({navigation}) {
   const handleModalClose = () => {
     setModalVisible(false);
     if (challengeDone) {
-      navigation.navigate('Home');
+      navigation.navigate(APP_STRINGS.HOME_SCREEN_ROUTE);
     }
   }
 
@@ -68,14 +65,14 @@ export default function Challenge1({navigation}) {
     <View style={styles.container}>
       <ChallengeIntro
         backgroundImage={require("@/assets/images/challenge1-intro.png")}
-        introText={textIntro}
-        helpText={helpText}
+        introText={APP_STRINGS.CHALLENGE1_INTRO}
+        helpText={APP_STRINGS.CHALLENGE1_HINT}
       />
       <CustomModal 
         modalVisible={modalVisible} 
         setModalVisible={setModalVisible} 
-        title={challengePassedModalTitle} 
-        text={challengePassedModalText} 
+        title={APP_STRINGS.CHALLENGE2_SUCCESS_TITLE} 
+        text={APP_STRINGS.CHALLENGE1_SUCCESS_TEXT} 
         onClose={handleModalClose}
         position="flex-end"
       />

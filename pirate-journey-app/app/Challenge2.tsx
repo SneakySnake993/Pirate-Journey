@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { StyleSheet, View, ImageBackground } from "react-native";
 import { useDispatch } from "react-redux";
+import { APP_STRINGS } from "@/constants/ApplicationStrings";
 
 // Components
 import CannonProgressBar from "../components/CannonProgressBar";
@@ -18,12 +19,6 @@ export default function Challenge2({navigation}) {
   const [modalHelpVisible, setModalHelpVisible] = useState(false);
   const [modalSuccessVisible, setModalSuccessVisible] = useState(false);
   const dispatch = useDispatch();
-
-  const textIntro = "Votre supérieur est venu vous tirer de votre sommeil. Il vous demande de rejoindre le pont pour aider à la défense du navire. Il faut maintenant rechargez le canon ! Comment allez-vous vous y prendre ?";
-  const helpText = "Quel mouvement feriez vous insérer la poudre dans le canon avec votre téléphone ?";
-  const helpTitle = "Indice";
-  const challengePassedModalTitle = 'Épreuve 2 réussie !'
-  const challengePassedModalText = 'Bravo, tu as réussi l\'épreuve. Tu peux maintenant passer à l\'épreuve suivante';
 
   const handleModalClose = () => {
     setModalSuccessVisible(false);
@@ -51,15 +46,15 @@ export default function Challenge2({navigation}) {
             <CustomModal 
               modalVisible={modalHelpVisible} 
               setModalVisible={setModalHelpVisible} 
-              title={helpTitle} 
-              text={helpText} 
+              title={APP_STRINGS.HINT_TITLE} 
+              text={APP_STRINGS.CHALLENGE2_HINT} 
               position={"flex-end"}
             />
             <CustomModal 
               modalVisible={modalSuccessVisible} 
               setModalVisible={setModalSuccessVisible} 
-              title={challengePassedModalTitle} 
-              text={challengePassedModalText} 
+              title={APP_STRINGS.CHALLENGE2_SUCCESS_TITLE} 
+              text={APP_STRINGS.CHALLENGE2_SUCCESS_TEXT} 
               onClose={handleModalClose}
               position="flex-end"
             />
@@ -68,11 +63,11 @@ export default function Challenge2({navigation}) {
           <View style={styles.container}>
             <ChallengeIntro
               backgroundImage={require("@/assets/images/challenge2-intro.png")}
-              introText={textIntro}
-              helpText={helpText}
+              introText={APP_STRINGS.CHALLENGE2_INTRO}
+              helpText={APP_STRINGS.CHALLENGE2_HINT}
             />
             <View style={styles.buttonContainer}>
-              <CustomButton title="Commencer" onPress={() => setIsChallengeStarted(true)} />
+              <CustomButton title={APP_STRINGS.START_BUTTON_TEXT} onPress={() => setIsChallengeStarted(true)} />
             </View>
           </View>
           }
