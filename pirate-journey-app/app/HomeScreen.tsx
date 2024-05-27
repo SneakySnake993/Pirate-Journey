@@ -83,7 +83,7 @@ export default function HomeScreen({ navigation }) {
         <View style={[styles.corner, styles.bottomRightCorner]} />
       </View>
       <View style={styles.buttonContainer}>
-        <CustomButton title="Epreuves" onPress={() => navigation.navigate(carouselChallenge)} />
+        <CustomButton title="Épreuves" onPress={() => navigation.navigate(carouselChallenge)} />
       </View>
     </View>
   );
