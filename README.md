@@ -1,4 +1,6 @@
-# Mobile_project
+# Pirate Journey
+
+This project is a mobile application developed as part of the Mobile Systems Programming course at HENALLUX. The app, inspired by Escape Museum's interactive experiences, is designed to complement the "Pirates of the Île Bourbon" exhibit. It challenges users to solve puzzles by leveraging various smartphone features, such as the flashlight, gyroscope, and accelerometer. Developed using React Native for its cross-platform capabilities.
 
  ## Prequisites
 
