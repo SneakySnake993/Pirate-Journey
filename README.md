@@ -16,7 +16,7 @@ This project is a mobile application developed as part of the Mobile Systems Pro
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     ```
 
-    if chololatey is already installed :
+    if chocolatey is already installed :
 
     ```bash
     choco upgrade chocolatey
@@ -36,7 +36,7 @@ This project is a mobile application developed as part of the Mobile Systems Pro
 
   Note : React Native recommend not higher version than JDK 17.
 
- ### 4. Install and confuigure Android Studio
+ ### 4. Install and configure Android Studio
 
  1. Install [Android Studio](https://developer.android.com/studio?hl=fr)
  2. Launch and configure Android Studio by reading this [tutorial](https://docs.expo.dev/workflow/android-studio-emulator/) (emulator section is optional).
